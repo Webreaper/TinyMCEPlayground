@@ -6,6 +6,8 @@
 
 <Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@content" Conf="tinyConf"/>
 
+<!--Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@content" JsConfSrc="tinyMceConf" /-->
+
 <div>
   <h3>The content:</h3>
   <div>@content</div>
@@ -47,12 +49,13 @@
   {
     var assembly = GetType().Assembly.GetName().Version;
 
-    var toolbar = new[]
-    {
-        AddToolbarGroup("styles", "styleselect"),
-        AddToolbarGroup("formattting", "bold  italic"),
-        AddToolbarGroup("alignment", "alignleft aligncenter alignright alignjustified"),
-        AddToolbarGroup("history", "undo redo"),
+    var toolbar = new [] {
+      new { name = "history", items = new [] {"undo", "redo"} }
+      //{ name: 'history', items: [ 'undo', 'redo' ] },
+      //{ name: 'styles', items: [ 'styles' ] },
+      //{ name: 'formatting', items: [ 'bold', 'italic' ] },
+      //{ name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify' ] },
+      //{ name: 'indentation', items: [ 'outdent', 'indent' ] }
     };    
     
     var menu = new 
@@ -70,15 +73,16 @@
       { "width", "90%" },
       { "cache_suffix", $"?=v{assembly.ToString()}" },
       { "branding", false},
+      { "content_css", "writer"},
+      { "plugins", "anchor autolink autoresize emoticons fullscreen image lists advlist link quickbars media searchreplace table wordcount"},
       { "statusbar", true },
       { "height", "400px"},
       { "max_height", 400},
       { "toolbar", toolbar},
-      { "menubar", "edit insert"},
+      { "menubar", "edit insert view table format tools"},
       { "menu", menu }
     };
 
     base.OnInitialized();
   }
-
 }

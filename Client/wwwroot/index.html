@@ -26,6 +26,28 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
+    <script>
+        window.tinyMceConf = {
+            height: 150,
+            width: '50%',
+            plugins: 'anchor autolink autoresize emoticons fullscreen image lists advlists link quickbars media searchreplace table wordcount',
+            content_css: 'writer',
+            menu: {
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
+                view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
+                insert: { title: 'Insert', items: 'image link media addcomment pageembed template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
+            },
+            toolbar_groups: [
+                { name: 'history', items: [ 'undo', 'redo' ] },
+                { name: 'styles', items: [ 'styles' ] },
+                { name: 'formatting', items: [ 'bold', 'italic' ] },
+                { name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify' ] },
+                { name: 'indentation', items: [ 'outdent', 'indent' ] }
+            ]
+        };
+    </script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="_framework/blazor.server.js"></script>
     <script src="_content/TinyMCE.Blazor/tinymce-blazor.js"></script>
