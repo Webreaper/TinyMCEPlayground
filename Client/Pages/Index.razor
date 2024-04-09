@@ -4,82 +4,54 @@
 
 <PageTitle>Index</PageTitle>
 
-<Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@content" Conf="tinyConf"/>
-
-<!--Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@content" JsConfSrc="tinyMceConf" /-->
-
-<div>
-  <h3>The content:</h3>
-  <div>@content</div>
-</div>
+@if (tinyConf != null)
+{
+  <Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@Content" Conf="tinyConf"/>
+}
 
 @code {
 
-  private Dictionary<string, object> tinyConf;
-  private string content { get; set;  }
-
-  private Dictionary<string, object> AddToolbarGroup(string name, string items)
-  {
-    return new Dictionary<string, object>
-    {
-      {
-        "name", name
-      },
-      {
-        "items", items.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-      }
-    };
-  }
+  private Dictionary<string, object>? tinyConf;
+  private string? Content { get; set;  }
   
-  private Dictionary<object, object> AddMenuBarItem(object name, string items)
-  {
-    var dict = new Dictionary<object, object>();
-    dict.Add(
-      name,
-      new
-      {
-        title = name,
-        items,
-      }
-    );
-    return dict;
-  }
-
   protected override void OnInitialized()
   {
     var assembly = GetType().Assembly.GetName().Version;
 
     var toolbar = new [] {
-      new { name = "history", items = new [] {"undo", "redo"} }
-      //{ name: 'history', items: [ 'undo', 'redo' ] },
-      //{ name: 'styles', items: [ 'styles' ] },
-      //{ name: 'formatting', items: [ 'bold', 'italic' ] },
-      //{ name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify' ] },
-      //{ name: 'indentation', items: [ 'outdent', 'indent' ] }
+      new { name = "history", items = new [] {"undo", "redo", "emoticons"} },
+      new { name = "styles", items = new [] {"styles"} },
+      new { name = "formatting", items = new [] {"bold", "italic"} },
+      new { name = "alignment", items = new [] {"align", "aligncenter", "alignright", "alignjustify"} },
+      new { name = "indentation", items = new [] {"outdent", "indent"} }
     };    
     
-    var menu = new 
+    // Note - when adding/removing top-level menus, it's not enough to do it using the 'menu'
+    // config setting. Any top-level menus you want to remove must explicitly do it via the 
+    // 'menubar' config setting. Also, menu items won't appear unless their plugin is loaded.
+    var menu = new
     {
       edit = new { title = "Edit", items = "undo redo | cut copy paste | selectall | searchreplace"},
-      insert = new { title = "Insert", items = "image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime"},
+      insert = new { title = "Insert", items = "image link media template codesample inserttable | hr | pagebreak nonbreaking anchor toc | insertdatetime"},
       format = new { title = "Format", items = "bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align lineheight | forecolor backcolor | removeformat"},
       view = new { title = "View", items = "code | visualaid visualchars visualblocks | spellchecker | preview fullscreen"},
       table = new { title = "Table", items = "inserttable | cell row column | tableprops deletetable" },
-      tools = new { title = "Tools", items = "spellchecker spellcheckerlanguage | code wordcount"}
-    };    
-
+      tools = new { title = "Tools", items = "wordcount"}
+    };
+    var menubar = "edit insert format view table tools";
+    
     tinyConf = new Dictionary<string, object>
     {
-      { "width", "90%" },
-      { "cache_suffix", $"?=v{assembly.ToString()}" },
+      { "width", "95%" },
+      { "max_width", "95%" },
+      { "cache_suffix", $"?=v{assembly?.ToString()}" },
       { "branding", false},
-      { "content_css", "writer"},
       { "plugins", "anchor autolink autoresize emoticons fullscreen image lists advlist link quickbars media searchreplace table wordcount"},
       { "statusbar", true },
-      { "height", "400px"},
-      { "max_height", 400},
+      { "height", 400},
+      { "max_height", 600},
       { "toolbar", toolbar},
-      { "menubar", "edit insert view table format tools"},
+      { "menubar", menubar},
       { "menu", menu }
     };
 
