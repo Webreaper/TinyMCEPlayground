@@ -6,7 +6,8 @@
 
 @if (tinyConf != null)
 {
-  <Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@Content" Conf="tinyConf"/>
+  <Editor ApiKey="5i1x7uisk6hu7vjc6yalt8m37sv8wr65s6i3skp7eredafyn" @bind-Value="@Content" 
+          ScriptSrc="js/tinymce/tinymce.min.js" Conf="tinyConf"/>
 }
 
 @code {
@@ -45,7 +46,8 @@
     {
       { "width", "95%" },
       { "cache_suffix", $"?=v{assembly?.ToString()}" },
-      { "branding", false},
+      { "branding", false}, // Disable the TinyMCE logo
+      { "promotion", false}, // Disable the 'upgrade' button for self-hosted editor
       { "plugins", "anchor autolink autoresize emoticons fullscreen image lists advlist link quickbars media searchreplace table wordcount"},
       { "statusbar", true },
       { "min_height", 400},
