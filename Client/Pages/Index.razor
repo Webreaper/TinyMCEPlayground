@@ -23,7 +23,8 @@
       new { name = "styles", items = new [] {"styles"} },
       new { name = "formatting", items = new [] {"bold", "italic"} },
       new { name = "alignment", items = new [] {"align", "aligncenter", "alignright", "alignjustify"} },
-      new { name = "indentation", items = new [] {"outdent", "indent"} }
+      new { name = "indentation", items = new [] {"outdent", "indent"} },
+      new { name = "view", items = new [] {"image", "fullscreen"} }
     };    
     
     // Note - when adding/removing top-level menus, it's not enough to do it using the 'menu'
@@ -43,18 +44,24 @@
     tinyConf = new Dictionary<string, object>
     {
       { "width", "95%" },
-      { "max_width", "95%" },
       { "cache_suffix", $"?=v{assembly?.ToString()}" },
       { "branding", false},
       { "plugins", "anchor autolink autoresize emoticons fullscreen image lists advlist link quickbars media searchreplace table wordcount"},
       { "statusbar", true },
-      { "height", 400},
+      { "min_height", 400},
       { "max_height", 600},
       { "toolbar", toolbar},
       { "menubar", menubar},
-      { "menu", menu }
+      { "menu", menu },
+      { "file_picker_types", "file image media" },
+      { "quickbars_insert_toolbar", false } // Don't show the quickinsertbar on newlines
     };
-
+    
+    // TODO: Investigate upload callbacks:
+    // https://www.tiny.cloud/docs/tinymce/6/image/#example-using-images_upload_handler
+    // TODO: Investigate file picker callback
+    // https://www.tiny.cloud/docs/tinymce/6/image/#interactive-example
+    
     base.OnInitialized();
   }
 }
