@@ -1,6 +1,4 @@
 ﻿@page "/"
-@using System.Reflection.Emit
-@using System.Reflection
 
 <PageTitle>Index</PageTitle>
 
@@ -11,8 +9,7 @@
 }
 
 @code {
-
-  private Dictionary<string, object>? tinyConf;
+private Dictionary<string, object>? tinyConf;
   private string? Content { get; set;  }
   
   protected override void OnInitialized()
@@ -44,6 +41,7 @@
     
     tinyConf = new Dictionary<string, object>
     {
+      //{ "license_key", "gpl"}, // Leaving this commented while we eval
       { "width", "95%" },
       { "cache_suffix", $"?=v{assembly?.ToString()}" },
       { "branding", false}, // Disable the TinyMCE logo
@@ -60,9 +58,11 @@
     };
     
     // TODO: Investigate upload callbacks:
-    // https://www.tiny.cloud/docs/tinymce/6/image/#example-using-images_upload_handler
+    // https://www.tiny.cloud/docs/tinymce/latest/image/#example-using-images_upload_handler
     // TODO: Investigate file picker callback
-    // https://www.tiny.cloud/docs/tinymce/6/image/#interactive-example
+    // https://www.tiny.cloud/docs/tinymce/latest/image/#interactive-example
+    // TODO: Investigate paste preprocess 
+    // https://www.tiny.cloud/docs/tinymce/latest/copy-and-paste/#example-using-paste_preprocess
     
     base.OnInitialized();
   }
